@@ -123,7 +123,7 @@ set(tmpt,'fontsize',18,'interpreter','latex');
 %set(tmpt,'fontsize',24,'interpreter','latex','fontweight','bold');
 
 ylabel('Active circulating infections in the USA, $I$','fontsize',20,'verticalalignment','bottom','interpreter','latex');
-title({'COVID-19 Event Risk Assessment Planner';'Assumes Incidence Homogeneity'},'fontsize',20,'interpreter','latex')
+title({'COVID-19 Event Risk Assessment Planner, Assumes Incidence Homogeneity';'Estimates chance that one or more individuals are COVID-19 positive at an event';'given event size (x-axis) and current case prevalence (y-axis)'},'fontsize',20,'interpreter','latex')
 
 % Get rid of temporary variables
 clear tmp*
