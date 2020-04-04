@@ -62,10 +62,10 @@ tmpt=text(20,100,{'Less than';'0.01\% chance of';'COVID-19';'positive attendee';
 set(tmpt,'interpreter','latex','fontsize',18);
 
 % Next, draw the horizontal scenarios, starting with "low"
-nvec = 3244;  %  Johns Hopkins 2020-03-15
-tmpt=text(3.75,nvec*0.85,'3,244 cases');
+nvec = 1663;  %  Johns Hopkins 2020-03-12
+tmpt=text(3.75,nvec*0.85,'1,663 cases');
 set(tmpt,'fontsize',14,'interpreter','latex');
-tmpt=text(3.5,nvec*1.3,'2020-03-15:  ');
+tmpt=text(3.5,nvec*1.3,'2020-03-12:  ');
 set(tmpt,'fontsize',14,'interpreter','latex');
 sizevec=[10 100 1000 10000 100000];
 tmph=loglog(sizevec,nvec*ones(size(sizevec)),'ko-');
@@ -81,10 +81,10 @@ for i=1:length(sizevec),
 end
 
 % Label the "high" scenario
-nvec = 20000;
-tmpt=text(3.5,nvec*0.85,'20,000 cases');
+nvec = 277953;
+tmpt=text(3.5,nvec*0.85,'277,953 cases');
 set(tmpt,'fontsize',14,'interpreter','latex');
-tmpt=text(4.5,nvec*1.3,'Scenario:');
+tmpt=text(3.5,nvec*1.3,'2020-04-04:');
 set(tmpt,'fontsize',14,'interpreter','latex');
 sizevec=[10 100 1000 10000 100000];
 tmph=loglog(sizevec,nvec*ones(size(sizevec)),'ko-');
@@ -128,3 +128,11 @@ title({'COVID-19 Event Risk Assessment Planner, Assumes Incidence Homogeneity';'
 
 % Get rid of temporary variables
 clear tmp*
+fig = gcf;
+%fig.PaperPositionMode = 'auto';
+fig.PaperPosition =[.25 .25 10.75 8.25];
+fig.PaperOrientation ='landscape';
+saveas(gcf, 'output', 'png')
+saveas(gcf, 'output', 'jpg')
+saveas(gcf, 'output', 'pdf')
+saveas(gcf, 'output', 'ps')
