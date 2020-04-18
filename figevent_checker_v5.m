@@ -31,7 +31,7 @@ numcrit=pcrit_val*USpop;
 tmph=loglog(n,numcrit);
 set(tmph,'linewidth',3,'color','k');
 hold on
-risk_vals = [0.02  0.1 0.5 0.9];
+risk_vals = [0.0001 0.001 0.01 0.1 0.5 0.9];
 for i=1:length(risk_vals),
   pcrit_risk = 1 - (1-risk_vals(i)).^(1./n);
   tmph=loglog(n,pcrit_risk*USpop,'k-');
@@ -39,32 +39,33 @@ for i=1:length(risk_vals),
 end
 
 % Next, draw labels near risk lines
-ytarget = 100000;
-pcrit_label=ytarget/USpop;
+yytarget = 30000;
 for i=1:length(risk_vals),
+  ytarget = yytarget /3^(length(risk_vals)-i);
+  pcrit_label=ytarget/USpop;
   nlabel = log(1-risk_vals(i))/log(1-pcrit_label);
-  tmpt=text(nlabel,100000*1.4,sprintf('%d%% Chance',100*risk_vals(i)));
+  tmpt=text(nlabel,ytarget*1.4,sprintf('%4g%% Chance',100*risk_vals(i)));
   set(tmpt,'fontsize',18,'rotation',-32);
 end
 
 % Now, block off bottom-left corner for <1% risk
 xblock = [10 10^5 10^5 10 10];
 yblock = [10 10 pcrit(10^5)*USpop pcrit(10^1)*USpop 10];
-tmph=patch(xblock,yblock,[0.75 0.75 0.75]);
+%tmph=patch(xblock,yblock,[0.85 0.85 0.85]);
 tmph=loglog(n,numcrit);
 set(tmph,'linewidth',4,'color','k');
-set(gca,'layer','top');
+%set(gca,'layer','top');
 
 % And add a label
 ylim([10 10^6]);
-tmpt=text(50,100,{'Less than';'1\% chance of';'COVID-19';'positive attendee';'at the event'});
+tmpt=text(20,100,{'Less than';'0.01\% chance of';'COVID-19';'positive attendee';'at the event'});
 set(tmpt,'interpreter','latex','fontsize',18);
 
 % Next, draw the horizontal scenarios, starting with "low"
-nvec = 2000;
-tmpt=text(3.75,nvec*0.85,'2,000 cases');
+nvec = 1663;  %  Johns Hopkins 2020-03-12
+tmpt=text(3.75,nvec*0.85,'1,663 cases');
 set(tmpt,'fontsize',14,'interpreter','latex');
-tmpt=text(4.5,nvec*1.3,'Scenario:');
+tmpt=text(3.5,nvec*1.3,'2020-03-12:  ');
 set(tmpt,'fontsize',14,'interpreter','latex');
 sizevec=[10 100 1000 10000 100000];
 tmph=loglog(sizevec,nvec*ones(size(sizevec)),'ko-');
@@ -75,15 +76,15 @@ set(tmph,'markersize',12,'markerfacecolor','b');
 for i=1:length(sizevec),
    p_equiv = nvec/USpop;
    eps_equiv(i) = 1-(1-p_equiv).^sizevec(i);
-   tmpt=text(sizevec(i)*(1-0.08*(i-1)),nvec*0.6,sprintf('%3.2g%% chance',eps_equiv(i)*100));
+   tmpt=text(sizevec(i)*(1-0.08*(i-1)),nvec*0.6,sprintf('%3.2g\\%% chance',eps_equiv(i)*100));
    set(tmpt,'fontsize',14,'interpreter','latex','color','blue');
 end
 
 % Label the "high" scenario
-nvec = 20000;
-tmpt=text(3.5,nvec*0.85,'20,000 cases');
+nvec = 277953;
+tmpt=text(3.5,nvec*0.85,'277,953 cases');
 set(tmpt,'fontsize',14,'interpreter','latex');
-tmpt=text(4.5,nvec*1.3,'Scenario:');
+tmpt=text(3.5,nvec*1.3,'2020-04-04:');
 set(tmpt,'fontsize',14,'interpreter','latex');
 sizevec=[10 100 1000 10000 100000];
 tmph=loglog(sizevec,nvec*ones(size(sizevec)),'ko-');
@@ -95,7 +96,7 @@ for i=1:length(sizevec),
    p_equiv = nvec/USpop;
    eps_equiv(i) = 1-(1-p_equiv).^sizevec(i);
    if (i<length(sizevec))
-     tmpt=text(sizevec(i)*(1-0.08*(i-1)),nvec*0.6,sprintf('%3.2g%% chance',eps_equiv(i)*100));
+     tmpt=text(sizevec(i)*(1-0.08*(i-1)),nvec*0.6,sprintf('%3.2g\\%% chance',eps_equiv(i)*100));
    else
      tmpt=text(sizevec(i)*(1-0.08*(i-1)),nvec*0.6,'$> 99$\% chance');
    end
@@ -114,7 +115,7 @@ set(gca,'xticklabel',tmps);
 set(gca,'ytick',10.^[0:1:6]);
 tmps={'1','10','100','1,000','10,000','100,000','1,000,000'};
 set(gca,'yticklabel',tmps);
-tmpsize_ideas={'Dinner party';'Wedding reception';'Small concert';'Hockey match';'March Madness'}
+tmpsize_ideas={'Dinner party';'Wedding reception';'Small concert';'Hockey match';'March Madness'};
 tmpt=text(10.^[0.65:1:4.65],ones(5,1)*3.25,tmpsize_ideas);
 set(tmpt,'fontsize',18,'interpreter','latex');
 tmpt=text(10^[4.65],2,'Final in Atlanta');
@@ -127,3 +128,11 @@ title({'COVID-19 Event Risk Assessment Planner, Assumes Incidence Homogeneity';'
 
 % Get rid of temporary variables
 clear tmp*
+fig = gcf;
+%fig.PaperPositionMode = 'auto';
+fig.PaperPosition =[.25 .25 10.75 8.25];
+fig.PaperOrientation ='landscape';
+saveas(gcf, 'output', 'png')
+saveas(gcf, 'output', 'jpg')
+saveas(gcf, 'output', 'pdf')
+saveas(gcf, 'output', 'ps')
