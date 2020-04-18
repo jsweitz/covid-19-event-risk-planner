@@ -212,7 +212,7 @@ set(gca,'xticklabel',tmps);
 set(gca,'ytick',10.^[0:1:7]);
 tmps={'1','10','100','1,000','10,000','100,000','1,000,000','10,000,000'};
 set(gca,'yticklabel',tmps);
-tmpsize_ideas={'Dinner party';'Wedding reception';'Small concert';'Hockey match';'Indy 500'}
+tmpsize_ideas={'Dinner party';'Wedding reception';'Small concert';'Soccer match';'Indy 500'}
 tmpt=text(10.^[0.65:1:4.65],ones(5,1)*5*1000,tmpsize_ideas);
 set(tmpt,'fontsize',18,'interpreter','latex');
 tmpt=text(10^[4.65],2,'Final in Atlanta');
