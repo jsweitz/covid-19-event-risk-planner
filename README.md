@@ -9,3 +9,9 @@ Key note: the chart assumes homogeneous incidence. In reality, risk is heterogen
 Joshua S. Weitz, jsweitz@gatech.edu, http://ecotheory.biology.gatech.edu
 
 Figures here: https://figshare.com/articles/COVID-19_Event_Risk_Assessment_Planner/11965533
+
+Updated: April 18, 2020 Using https://covidtracking.com/data/us-daily
+Assuming Last 2 week positives as estimate of 'Circulating Cases' and
+then multiplying by 5x and 20x to get the alternative scenarios
+
+NOTE: THE REASONABLE UNCERTAINTY IN THIS CALCULATION EXCEEDS THE SCENARIOS SHOWN HERE
